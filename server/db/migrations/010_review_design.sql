@@ -1,0 +1,3 @@
+ALTER TABLE users ADD COLUMN preferences TEXT NOT NULL DEFAULT '{}';
+ALTER TABLE templates ADD COLUMN include_items INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE templates ADD COLUMN source_workspace_id INTEGER REFERENCES workspaces(id) ON DELETE SET NULL;

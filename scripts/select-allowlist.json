@@ -1,0 +1,10 @@
+{
+  "total": 12,
+  "files": {
+    "web/src/ai/AiColumnDialog.tsx": 1,
+    "web/src/ai/MeetingNotesDialog.tsx": 3,
+    "web/src/board/ColumnConfigDialog.tsx": 5,
+    "web/src/board/FormBuilder.tsx": 1,
+    "web/src/home/QuickAddDialog.tsx": 2
+  }
+}

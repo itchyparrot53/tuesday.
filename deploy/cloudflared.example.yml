@@ -1,0 +1,10 @@
+# Alternative to Caddy: a Cloudflare Tunnel with no inbound ports.
+# Replace the tunnel id, credentials path and hostname, then run:
+#   cloudflared tunnel --config deploy/cloudflared.example.yml run
+tunnel: YOUR_TUNNEL_ID
+credentials-file: /etc/cloudflared/YOUR_TUNNEL_ID.json
+
+ingress:
+  - hostname: your-domain.example
+    service: http://tuesday:3000
+  - service: http_status:404

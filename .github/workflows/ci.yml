@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Type, design, unit and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run check:design
+      - run: npm run check:colors
+      - run: npm test
+      - run: npm run build
+
+  e2e:
+    name: Playwright
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - name: Upload failure traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 7
+
+  docker:
+    name: Docker smoke
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t tuesday:ci .
+      - name: Start container
+        run: |
+          docker run -d --name tuesday-ci -p 3300:3000 \
+            -e AI_FAKE=true -e MAIL_FAKE=true -e PUSH_FAKE=true \
+            tuesday:ci
+      - name: Wait for health
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3300/api/health; then exit 0; fi
+            sleep 2
+          done
+          docker logs tuesday-ci
+          exit 1
+      - name: Verify persistence
+        run: |
+          curl -fsS -X POST http://localhost:3300/api/auth/setup \
+            -H 'content-type: application/json' \
+            -H 'x-requested-with: tuesday' \
+            -d '{"orgName":"CI","name":"CI Owner","email":"ci@example.com","password":"password123"}'
+          docker restart tuesday-ci
+          sleep 8
+          curl -fsS http://localhost:3300/api/health
+      - name: Stop container
+        if: always()
+        run: docker rm -f tuesday-ci || true

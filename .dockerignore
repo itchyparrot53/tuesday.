@@ -1,0 +1,11 @@
+node_modules
+dist
+data
+.env
+.git
+*.db*
+coverage
+PROGRESS.md
+e2e/screenshots
+test-results
+playwright-report

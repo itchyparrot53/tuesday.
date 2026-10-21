@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <meta name="theme-color" content="#C9356C" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#17121A" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <script>
+      try {
+        const prefs = JSON.parse(localStorage.getItem('tuesday:prefs') || '{}');
+        const system =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        document.documentElement.dataset.theme =
+          prefs.theme === 'light' || prefs.theme === 'dark' ? prefs.theme : system;
+        document.documentElement.dataset.density =
+          prefs.density === 'compact' ? 'compact' : 'comfortable';
+        const requestedTheme = prefs.colorTheme;
+        const legacyTheme = {
+          forest: 'wednesday',
+          amber: 'thursday',
+          violet: 'friday',
+        }[requestedTheme];
+        document.documentElement.dataset.colorTheme = [
+          'monday',
+          'tuesday',
+          'wednesday',
+          'thursday',
+          'friday',
+          'saturday',
+          'sunday',
+        ].includes(requestedTheme)
+          ? requestedTheme
+          : (legacyTheme ?? 'monday');
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+        document.documentElement.dataset.density = 'comfortable';
+        document.documentElement.dataset.colorTheme = 'monday';
+      }
+    </script>
+    <title>Tuesday</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

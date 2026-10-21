@@ -1,0 +1,6 @@
+# Tuesday behind Caddy. Caddy obtains and renews the certificate automatically.
+# Set DOMAIN in the environment (or replace {$DOMAIN:example.com} below).
+{$DOMAIN:example.com} {
+	encode zstd gzip
+	reverse_proxy tuesday:3000
+}

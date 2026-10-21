@@ -1,0 +1,52 @@
+name: Feature request
+description: Suggest a product or self-hosting improvement.
+title: 'feat: '
+labels: [enhancement, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the problem first, then the proposed solution. Features that keep Tuesday small and self-hostable are preferred.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Who is affected and in what workflow?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Boards and views
+        - Items and fields
+        - Automations
+        - AI
+        - Docs and dashboards
+        - Admin and permissions
+        - Self-hosting and operations
+        - Mobile and PWA
+        - Developer experience
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and discussions.
+          required: true
+        - label: This request is consistent with a self-hosted, single-container product.
+          required: true

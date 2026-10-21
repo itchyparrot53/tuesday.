@@ -1,0 +1,51 @@
+export const pwaManifest = {
+  id: '/',
+  name: 'Tuesday',
+  short_name: 'Tuesday',
+  description: 'Work management for your team, with AI that knows your boards.',
+  start_url: '/',
+  scope: '/',
+  display: 'standalone',
+  display_override: ['window-controls-overlay', 'standalone'],
+  background_color: '#F6F2F5',
+  theme_color: '#C9356C',
+  categories: ['productivity', 'business'],
+  icons: [
+    { src: 'pwa-64x64.png', sizes: '64x64', type: 'image/png' },
+    { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+    { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+    {
+      src: 'maskable-icon-512x512.png',
+      sizes: '512x512',
+      type: 'image/png',
+      purpose: 'maskable',
+    },
+  ],
+  shortcuts: [
+    { name: 'New item', url: '/?new=item', icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }] },
+    { name: 'My work', url: '/my-work', icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }] },
+    { name: 'Tuesday AI', url: '/ai', icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }] },
+    { name: 'Inbox', url: '/inbox', icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }] },
+  ],
+  share_target: {
+    action: '/share',
+    method: 'GET',
+    params: { title: 'title', text: 'text', url: 'url' },
+  },
+  screenshots: [
+    {
+      src: 'screenshots/home-wide.png',
+      sizes: '1280x720',
+      type: 'image/png',
+      form_factor: 'wide',
+      label: 'Home',
+    },
+    {
+      src: 'screenshots/home-narrow.png',
+      sizes: '750x1334',
+      type: 'image/png',
+      form_factor: 'narrow',
+      label: 'Home on a phone',
+    },
+  ],
+};

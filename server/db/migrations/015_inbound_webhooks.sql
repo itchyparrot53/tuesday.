@@ -1,0 +1,8 @@
+CREATE TABLE inbound_webhooks (
+  id INTEGER PRIMARY KEY,
+  board_id INTEGER NOT NULL UNIQUE REFERENCES boards(id) ON DELETE CASCADE,
+  token TEXT NOT NULL UNIQUE,
+  created_by INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  created_at TEXT NOT NULL,
+  last_used_at TEXT
+);
