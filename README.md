@@ -2,97 +2,91 @@
 
 <img src="docs/brand/readme-hero.webp" width="100%" alt="Tuesday logo" />
 
-<h1>Tuesday</h1>
-
 <p><strong>Work management that runs on your server.</strong></p>
 
-<p>Boards, docs, dashboards, automations and optional AI — in one container, on one SQLite volume, with no SaaS in the middle.</p>
-
-![Status](https://img.shields.io/badge/status-public%20beta-c9356c?style=for-the-badge)
+![Status](https://img.shields.io/badge/status-public%20beta-c9356c?style=for-the-badge&labelColor=2b2130)
+![Last commit](https://img.shields.io/github/last-commit/itchyparrot53/tuesday.?style=for-the-badge&color=c9356c&labelColor=2b2130)
+![Issues](https://img.shields.io/github/issues/itchyparrot53/tuesday.?style=for-the-badge&color=c9356c&labelColor=2b2130)
+![Stars](https://img.shields.io/github/stars/itchyparrot53/tuesday.?style=for-the-badge&color=c9356c&labelColor=2b2130)
+![Container](https://img.shields.io/badge/Container-GHCR-c9356c?style=for-the-badge&logo=github&logoColor=white&labelColor=2b2130)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-24-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-local-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge)
+![Licence](https://img.shields.io/badge/Licence-MIT-c9356c?style=for-the-badge&labelColor=2b2130)
 
-[Quick start](#-quick-start) · [Screenshots](#screenshots) · [Docs](docs/OPERATIONS.md) · [Self-hosting](#self-hosting) · [Contributing](CONTRIBUTING.md)
+</div>
+
+<div align="center">
+
+[![About](https://img.shields.io/badge/About-c9356c?style=for-the-badge&labelColor=2b2130)](#what-is-tuesday)
+[![Why Tuesday](https://img.shields.io/badge/Why_Tuesday-c9356c?style=for-the-badge&labelColor=2b2130)](#why-tuesday)
+[![What's inside](https://img.shields.io/badge/What%27s_Inside-c9356c?style=for-the-badge&labelColor=2b2130)](#whats-inside)
+[![Quick start](https://img.shields.io/badge/Quick_Start-c9356c?style=for-the-badge&labelColor=2b2130)](#quick-start)
+[![Configuration](https://img.shields.io/badge/Configuration-c9356c?style=for-the-badge&labelColor=2b2130)](#configuration)
+[![Architecture](https://img.shields.io/badge/Architecture-c9356c?style=for-the-badge&labelColor=2b2130)](#architecture)
+[![Self-hosting](https://img.shields.io/badge/Self_Hosting-c9356c?style=for-the-badge&labelColor=2b2130)](#self-hosting)
+[![Support](https://img.shields.io/badge/Support-c9356c?style=for-the-badge&labelColor=2b2130)](#support)
 
 </div>
 
 ---
 
-## 🗓️ What is Tuesday?
+> [!IMPORTANT]
+> Version 0.1.0 is a public beta. Back up your data and pin a release tag for production.
 
-Tuesday is a self-hosted work OS for teams that want the clarity of a modern work-management tool without handing their data to one. It combines monday-style boards with docs, dashboards, automations, a focus queue and an optional AI layer.
+<a name="what-is-tuesday"></a>
 
-It is deliberately small to operate: **one Docker container, one SQLite database, one `/data` volume**. There is no Redis, no Postgres and no required cloud service. AI, email, SSO, off-site backups and push notifications are optional.
+## What is Tuesday?
 
-> **v0.1.0 — public beta.** The core is built and tested; APIs may change before 1.0. Back up your data and pin a release tag for production.
+Tuesday is a self-hosted work OS for teams that want modern work-management features without handing their data to a SaaS provider. It combines monday-style boards with docs, dashboards, automations, a focus queue and an optional AI layer.
 
-> Not affiliated with, endorsed by, or connected to monday.com.
+It runs as one Docker container with one SQLite database and one `/data` volume. There is no Redis, no Postgres and no required cloud service. AI, email, SSO, off-site backups and push notifications are optional.
 
-## ✨ Why Tuesday?
+<a name="why-tuesday"></a>
 
-- **Self-hosted by default.** Your database, files and backups stay on your hardware. The only outbound calls are the ones you configure.
-- **Real work, not just cards.** Typed columns, subitems, dependencies, files, time tracking, docs, dashboards and an inbox share one permission model.
-- **Automations and workflows.** Board-scoped recipes for the small loops; org-level workflows that carry data across boards and handoffs.
-- **AI is optional and budgeted.** Use your own OpenRouter key, or run everything without AI. Every call goes through budgets, routing and usage reporting. [What leaves the server](docs/PRIVACY.md).
-- **Seven day-named palettes.** Monday is the default; each day chooses a sensible light/dark default when selected, then you can override it.
-- **Small operational surface.** One process, one SQLite file, a database-backed job queue, a health endpoint and a documented restore drill.
+## Why Tuesday?
 
-<div align="center">
-  <img src="docs/screenshots/home.png" alt="Tuesday Home focus queue" width="100%" />
-  <p><em>Home turns everything assigned to you into a ranked focus queue.</em></p>
-</div>
+- Your database, files and backups stay on your hardware. The only outbound calls are the ones you configure.
+- Typed columns, subitems, dependencies, files, time tracking, docs, dashboards and an inbox share one permission model.
+- Automations run board-scoped recipes. Org-level workflows carry data across boards and handoffs.
+- AI is optional. Use your own OpenRouter key, or run everything without AI. Every call goes through budgets, routing and usage reporting. [What leaves the server](docs/PRIVACY.md).
+- Seven day-named palettes are available. Monday is the default. Each day has a light and dark default, and you can override either.
+- Operations stay small. There is one process, one SQLite file, a database-backed job queue, a health endpoint and a documented restore drill.
 
-## 🚀 Quick start
+---
 
-Requires Docker Engine 24+ with Compose, 2 GB RAM and a persistent volume. Node.js 24+ is only needed for local development.
+<a name="whats-inside"></a>
 
-```bash
-git clone https://github.com/itchyparrot53/tuesday..git
-cd tuesday
-cp .env.example .env
-# Set APP_URL. OPENROUTER_API_KEY is optional.
-docker compose up -d --build
-```
+## What's inside
 
-Open **http://localhost:3000** and complete the first-run setup. There is no default account — the first visitor creates the owner.
+- Boards have groups, typed columns, subitems, table, kanban, calendar and timeline views, filters, saved views, bulk edit, undo, import/export and templates.
+- Home is a ranked focus queue. My work, Inbox, updates with @mentions, files, dependencies, time tracking and keyboard navigation cover the daily work.
+- Automations include 16 recipes, board-specific LLM templates, a sentence builder for chained subitem actions, run history, pause/duplicate and signed outbound webhooks.
+- Workflows are org-level and cross-board. A trigger on one board can create an item on another, copy values, assign the source person, post a tagged note and notify. Each run is logged.
+- AI includes the assistant with board context, board generation, AI columns, summaries, writing help, meeting notes, budgets, routing and optional organisation memory.
+- Docs are versioned markdown. Dashboards have number, chart, list, risk and AI widgets.
+- Admin includes a live setup guide, roles, private boards, guests, OIDC SSO, SMTP, audit log, sessions, API tokens, local and off-site backups, health, metrics and a go-live checklist.
+- The PWA installs, queues work offline, sends push notifications, accepts Android shares and has mobile navigation.
 
-```bash
-docker compose logs -f tuesday
-curl http://localhost:3000/api/health
-docker compose down   # keeps the tuesday-data volume
-```
+---
 
-For production, set `APP_URL` to the public HTTPS origin, `COOKIE_SECURE=true` and `TRUST_PROXY=true`, then put a reverse proxy in front. See [operations](docs/OPERATIONS.md). A prebuilt `ghcr.io` image is planned for the first tagged release.
-
-## 🧭 What's inside
-
-- **Boards:** groups, typed columns, subitems, table/kanban/calendar/timeline views, filters, saved views, bulk edit, undo, import/export and templates.
-- **Work:** Home focus queue, My work, Inbox, updates with @mentions, files, dependencies, time tracking and keyboard navigation.
-- **Automations:** 16 recipes, board-specific LLM templates, a sentence builder for chained subitem actions, run history, pause/duplicate and signed outbound webhooks.
-- **Workflows:** org-level, cross-board handoffs — trigger on one board, create an item on another, copy values, assign the source person, post a tagged note and notify. Each run is logged.
-- **AI:** assistant with board context, board generation, AI columns, summaries, writing help, meeting notes, budgets, routing and optional organisation memory.
-- **Docs and dashboards:** versioned markdown docs and number/chart/list/risk/AI widgets.
-- **Admin and operations:** a live admin setup guide, roles, private boards, guests, OIDC SSO, SMTP, audit log, sessions, API tokens, local/off-site backups, health, metrics and a go-live checklist.
-- **PWA:** installable, offline outbox, push notifications, Android share target and mobile navigation.
-
+<a name="screenshots"></a>
 <details id="screenshots">
-<summary><strong>📸 Screenshots</strong> — boards, automations, docs and mobile</summary>
+<summary><strong>Screenshots: boards, automations, docs and mobile</strong></summary>
 
-### Boards — table and kanban
+### Boards: table and kanban
 
 <img src="docs/screenshots/board-table.png" alt="Board table with groups and typed columns" width="100%" />
 
 <img src="docs/screenshots/board-kanban.png" alt="Board kanban by status" width="100%" />
 
-### Automations — recipes and board-specific templates
+### Automations: recipes and board-specific templates
 
-<img src="docs/screenshots/automations.png" alt="Automation center" width="100%" />
+<img src="docs/screenshots/automations.png" alt="Automation centre" width="100%" />
 
 <img src="docs/screenshots/automation-templates.png" alt="Board-specific automation templates" width="100%" />
 
-### Workflows — cross-board handoffs
+### Workflows: cross-board handoffs
 
 <img src="docs/screenshots/workflows.png" alt="Cross-board workflows" width="100%" />
 
@@ -118,8 +112,47 @@ For production, set `APP_URL` to the public HTTPS origin, `COOKIE_SECURE=true` a
 
 </details>
 
-<details>
-<summary><strong>⚙️ Configuration</strong></summary>
+---
+
+<a name="quick-start"></a>
+
+## Quick start
+
+Requires Docker Engine 24+ with Compose, 2 GB RAM and a persistent volume. Node.js 24+ is only needed for local development.
+
+```bash
+git clone https://github.com/itchyparrot53/tuesday..git
+cd tuesday
+cp .env.example .env
+# Set APP_URL. OPENROUTER_API_KEY is optional.
+docker compose up -d --build
+```
+
+> [!TIP]
+> Open http://localhost:3000 and complete the first-run setup. There is no default account. The first visitor creates the owner.
+
+```bash
+docker compose logs -f tuesday
+curl http://localhost:3000/api/health
+docker compose down   # keeps the tuesday-data volume
+```
+
+For production, set `APP_URL` to the public HTTPS origin, `COOKIE_SECURE=true` and `TRUST_PROXY=true`, then put a reverse proxy in front. See [operations](docs/OPERATIONS.md).
+
+To use the published image instead of building from source:
+
+```bash
+cp .env.example .env
+TUESDAY_VERSION=v0.1.0 docker compose -f docker-compose.release.yml up -d
+```
+
+Tagged releases publish a multi-arch image to GHCR. Pull a pinned version when you upgrade.
+
+---
+
+<a name="configuration"></a>
+<details id="configuration">
+<summary><strong>Configuration</strong></summary>
 
 Start from `.env.example`. The essentials:
 
@@ -132,15 +165,16 @@ Start from `.env.example`. The essentials:
 | `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` / `MAIL_FROM`   | empty                   | Invites, password resets, mentions and digests.                                        |
 | `OIDC_ISSUER` / `OIDC_CLIENT_ID` / `OIDC_CLIENT_SECRET` | empty                   | SSO. Redirect URI: `{APP_URL}/api/auth/oidc/callback`.                                 |
 | `BACKUP_S3_*`                                           | empty                   | Encrypted off-site backups to any S3-compatible bucket.                                |
-| `VAPID_SUBJECT`                                         | empty                   | Contact for web push; keys are generated on first use.                                 |
+| `VAPID_SUBJECT`                                         | empty                   | Contact for web push. Keys are generated on first use.                                 |
 | `AI_FAKE` / `MAIL_FAKE` / `PUSH_FAKE`                   | `false`                 | Development only. Never enable in production.                                          |
 
 The full variable reference, secret rotation and troubleshooting are in [docs/OPERATIONS.md](docs/OPERATIONS.md). API tokens are in [docs/API.md](docs/API.md).
 
 </details>
 
-<details>
-<summary><strong>🏗️ Architecture</strong></summary>
+<a name="architecture"></a>
+<details id="architecture">
+<summary><strong>Architecture</strong></summary>
 
 ```text
 Browser
@@ -164,14 +198,16 @@ Fastify 5 API
 | `e2e/`     | Playwright specs, isolated test server and design gallery      |
 | `tests/`   | Vitest server and unit tests                                   |
 | `deploy/`  | Caddy, Cloudflare Tunnel and production Compose examples       |
-| `docs/`    | Operations, API, privacy, release and this plan                |
+| `docs/`    | Operations, API, privacy, release and the public release plan  |
 
-SQLite runs in WAL mode with numbered migrations, a database-backed job queue for email/webhooks/AI/backups, SSE for live board updates, and a single `/data` volume for everything stateful. Security checks are server-side across boards, items, docs, dashboards, AI tools, SSE and notifications; sessions use HttpOnly cookies with CSRF protection and webhooks are HMAC-signed.
+SQLite runs in WAL mode with numbered migrations and a database-backed job queue for email, webhooks, AI and backups. SSE keeps board updates live, and one `/data` volume holds everything stateful.
+
+Security is enforced on the server for boards, items, docs, dashboards, AI tools, SSE and notifications. Sessions use HttpOnly cookies with CSRF protection, and webhooks are HMAC-signed.
 
 </details>
 
-<details>
-<summary><strong>🛠️ Development and testing</strong></summary>
+<details id="development">
+<summary><strong>Development and testing</strong></summary>
 
 ```bash
 git clone https://github.com/itchyparrot53/tuesday..git
@@ -180,7 +216,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**. Vite proxies `/api` to Fastify on port 3000. The default database is `./data/tuesday.db`; set `TUESDAY_NO_DOTENV=1` to ignore `.env`.
+Open http://localhost:5173. Vite proxies `/api` to Fastify on port 3000. The default database is `./data/tuesday.db`; set `TUESDAY_NO_DOTENV=1` to ignore `.env`.
 
 | Command                | What it does                                     |
 | ---------------------- | ------------------------------------------------ |
@@ -198,25 +234,26 @@ E2E uses an isolated SQLite database with fake AI, email, push and S3 adapters. 
 
 </details>
 
+<a name="self-hosting"></a>
 <details id="self-hosting">
-<summary><strong>🌐 Self-hosting and upgrades</strong></summary>
+<summary><strong>Self-hosting and upgrades</strong></summary>
 
-- **Operations runbook:** [docs/OPERATIONS.md](docs/OPERATIONS.md) — install, upgrade, every env var, backups, restore, health, metrics, email/SSO/push troubleshooting.
-- **HTTPS:** [Caddy](deploy/Caddyfile.example), [Cloudflare Tunnel](deploy/cloudflared.example.yml) and [production Compose](deploy/docker-compose.prod.example.yml).
-- **API:** [docs/API.md](docs/API.md) — bearer tokens, CSV/file calls, webhooks and errors.
-- **Release checklist:** [docs/RELEASE.md](docs/RELEASE.md) — HTTPS, email DNS, backups, go-live and rollback.
-- **Backups:** local archives plus optional encrypted S3-compatible copies. Test a restore with `scripts/restore-drill.sh` before trusting it.
+- Install, upgrade, every environment variable, backups, restore, health, metrics and email, SSO and push troubleshooting are in the [operations runbook](docs/OPERATIONS.md).
+- The [Caddy example](deploy/Caddyfile.example), [Cloudflare Tunnel example](deploy/cloudflared.example.yml) and [production Compose example](deploy/docker-compose.prod.example.yml) cover HTTPS.
+- Bearer tokens, CSV and file calls, webhooks and errors are in the [API reference](docs/API.md).
+- HTTPS, email DNS, backups, go-live and rollback are in the [release checklist](docs/RELEASE.md).
+- Backups are local archives plus optional encrypted S3-compatible copies. Test a restore with `scripts/restore-drill.sh` before trusting it.
 
 ### Prebuilt image
 
-Version tags publish a multi-arch image (linux/amd64 and linux/arm64) to `ghcr.io/itchyparrot53/tuesday`. Normal commits do not build or publish an image.
+Only version tags publish a multi-arch image for linux/amd64 and linux/arm64 to `ghcr.io/itchyparrot53/tuesday`.
 
 ```bash
 cp .env.example .env
 TUESDAY_VERSION=v0.1.0 docker compose -f docker-compose.release.yml up -d
 ```
 
-`latest` follows the newest stable tag; pin a version in production.
+`latest` follows the newest stable tag. Pin a version in production.
 
 ### Upgrades
 
@@ -226,7 +263,7 @@ From source:
 git fetch --tags
 git checkout v0.1.0
 docker compose up -d --build
-# Check /api/health and Admin → Go-live checklist.
+# Check /api/health and the Admin go-live checklist.
 ```
 
 From the published image:
@@ -234,21 +271,52 @@ From the published image:
 ```bash
 TUESDAY_VERSION=v0.2.0 docker compose -f docker-compose.release.yml pull
 TUESDAY_VERSION=v0.2.0 docker compose -f docker-compose.release.yml up -d
-# Check /api/health and Admin → Go-live checklist.
+# Check /api/health and the Admin go-live checklist.
 ```
 
 </details>
 
-## 📚 Documentation
+---
 
-[Operations](docs/OPERATIONS.md) · [API](docs/API.md) · [Release](docs/RELEASE.md) · [Privacy](docs/PRIVACY.md) · [Public release plan](docs/PUBLIC-RELEASE-PLAN.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
+## Documentation
 
-## 💬 Support and contributing
+- [Operations](docs/OPERATIONS.md)
+- [API](docs/API.md)
+- [Release](docs/RELEASE.md)
+- [Privacy](docs/PRIVACY.md)
+- [Public release plan](docs/PUBLIC-RELEASE-PLAN.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security](SECURITY.md)
+- [Changelog](CHANGELOG.md)
 
-Questions and setup help go to [GitHub Discussions](https://github.com/itchyparrot53/tuesday./discussions); bugs and features go to [GitHub Issues](https://github.com/itchyparrot53/tuesday./issues); vulnerabilities go through the private advisory in [SECURITY.md](SECURITY.md). Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+---
 
-Tuesday is maintained best-effort. There is no SLA, hosted support or guaranteed response time for the public beta.
+<a name="support"></a>
 
-## 📄 License
+## Support
 
-MIT — see [LICENSE](LICENSE). Tuesday is independent and not affiliated with monday.com.
+Questions and setup help go to [GitHub Discussions](https://github.com/itchyparrot53/tuesday./discussions). Bugs and feature requests go to [GitHub Issues](https://github.com/itchyparrot53/tuesday./issues). Vulnerabilities go through the private advisory in [SECURITY.md](SECURITY.md).
+
+Tuesday is maintained on a best-effort basis. There is no SLA, hosted support or guaranteed response time for the public beta.
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).
+
+Tuesday is not affiliated with, endorsed by or connected to monday.com.
+
+---
+
+## Star history
+
+<a href="https://star-history.com/#itchyparrot53/tuesday.&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=itchyparrot53/tuesday.&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=itchyparrot53/tuesday.&type=Date" />
+    <img alt="Star history chart" src="https://api.star-history.com/svg?repos=itchyparrot53/tuesday.&type=Date" />
+  </picture>
+</a>
