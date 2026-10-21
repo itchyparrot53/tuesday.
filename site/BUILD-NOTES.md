@@ -166,7 +166,7 @@ With JavaScript disabled at 390px, all seven tour panels are visible stacked, al
 - Pages URL: **https://itchyparrot53.github.io/tuesday./**
 - Repository URL: **https://github.com/itchyparrot53/tuesday.**
 - The trailing dot is part of this repository's name. Canonical, Open Graph, sitemap, robots, README, GitHub buttons and the install command all use the trailing-dot URLs.
-- The GitHub Pages workflow completed its first deployment from commit `a0a9926`; the URL corrections are deployed from the next commit.
+- The GitHub Pages workflow completed successfully from commit `737b23a`. The live page returned HTTP 200 at the trailing-dot URL, with the new hero and corrected canonical, sitemap and GitHub links.
 
 ## Owner note
 
