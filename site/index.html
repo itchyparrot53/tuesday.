@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tuesday: your work OS, on your own server</title>
+  <meta name="description" content="Tuesday is an open-source, self-hosted work OS. Boards, docs, dashboards, automations and optional AI in one Docker container. MIT licensed.">
+  <link rel="canonical" href="https://itchyparrot53.github.io/tuesday/">
+  <meta name="theme-color" content="#fbf6f8">
+  <meta name="color-scheme" content="light">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tuesday">
+  <meta property="og:title" content="Tuesday">
+  <meta property="og:description" content="The work OS small enough to own.">
+  <meta property="og:url" content="https://itchyparrot53.github.io/tuesday/">
+  <meta property="og:image" content="https://itchyparrot53.github.io/tuesday/assets/brand/og-image-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Tuesday">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tuesday">
+  <meta name="twitter:description" content="The work OS small enough to own.">
+  <meta name="twitter:image" content="https://itchyparrot53.github.io/tuesday/assets/brand/og-image-1200x630.png">
+  <meta name="twitter:image:alt" content="Tuesday">
+
+  <link rel="icon" href="./assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="./apple-touch-icon-180x180.png">
+
+  <link rel="preload" href="./assets/fonts/BricolageGrotesque-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/Figtree-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./main.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tuesday",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Linux, Docker",
+    "license": "https://opensource.org/licenses/MIT",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "GBP"
+    },
+    "codeRepository": "https://github.com/itchyparrot53/tuesday"
+  }
+  </script>
+</head>
+<body>
+  <div class="scroll-sentinel" aria-hidden="true"></div>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Tuesday home">
+        <img class="brand-logo" src="./assets/brand/tuesday-logo-horizontal-light.svg" alt="Tuesday" width="491" height="116">
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#automations">Automations</a>
+        <a href="#self-host">Self-host</a>
+        <a href="https://github.com/itchyparrot53/tuesday/blob/main/docs/OPERATIONS.md">Docs</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn-glass btn-sm header-github" href="https://github.com/itchyparrot53/tuesday">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.15 0 1.55-.01 2.81-.01 3.19 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          <span>Star</span>
+          <span class="count-pill" data-stars hidden>0</span>
+        </a>
+        <a class="btn-primary btn-sm" href="#install">Get started</a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" id="menu-button">
+          <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
+          <span>Menu</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav class="mobile-nav" aria-label="Mobile">
+        <a href="#features">Features</a>
+        <a href="#automations">Automations</a>
+        <a href="#self-host">Self-host</a>
+        <a href="https://github.com/itchyparrot53/tuesday/blob/main/docs/OPERATIONS.md">Docs</a>
+      </nav>
+      <div class="mobile-menu-actions">
+        <a class="btn-glass" href="https://github.com/itchyparrot53/tuesday">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.15 0 1.55-.01 2.81-.01 3.19 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          <span>Star on GitHub</span>
+          <span class="count-pill" data-stars hidden>0</span>
+        </a>
+        <a class="btn-primary" href="#install">Get started</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="light hero-light" aria-hidden="true"><span></span><span></span><span></span></div>
+
+      <figure class="hero-media">
+        <picture>
+          <source srcset="./assets/hero-900.webp 900w, ./assets/hero-1600.webp 1600w, ./assets/hero.webp 4096w" sizes="100vw" type="image/webp">
+          <img src="./assets/hero-1600.webp" width="4096" height="1024" alt="Tuesday's logo: two pink glass cards, the front one ticked, beside the word tuesday" fetchpriority="high" decoding="async">
+        </picture>
+      </figure>
+
+      <div class="container hero-content">
+        <div class="hero-panel glass">
+          <div class="hero-intro">
+            <span class="badge"><span data-version>v0.1.0</span> public beta · MIT</span>
+            <h1 id="hero-title">Your work OS, on your own server.</h1>
+          </div>
+          <div class="hero-side">
+            <p class="lead">Boards, docs, dashboards and automations in one container. One SQLite file. No SaaS.</p>
+            <div class="button-row hero-buttons">
+              <a class="btn-primary" href="#install">Get started</a>
+              <a class="btn-glass" href="https://github.com/itchyparrot53/tuesday">
+                <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.15 0 1.55-.01 2.81-.01 3.19 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+                <span>View on GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="facts-section" aria-label="Tuesday at a glance">
+      <div class="container">
+        <div class="facts glass reveal">
+          <div class="fact">
+            <span class="fact-big">1 container</span>
+            <span class="fact-label">No Postgres, Redis or queue</span>
+          </div>
+          <div class="fact">
+            <span class="fact-big">1 SQLite file</span>
+            <span class="fact-label">Backups are a folder copy</span>
+          </div>
+          <div class="fact">
+            <span class="fact-big">0 cloud services</span>
+            <span class="fact-label">AI, email and SSO are optional</span>
+          </div>
+          <div class="fact">
+            <span class="fact-big">MIT</span>
+            <span class="fact-label">Free to use and change</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-band" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="features-title">Everything your team tracks, in one place.</h2>
+          <p class="lead">Boards, docs, dashboards and a focus queue, with one permission model.</p>
+        </div>
+
+        <div class="tour reveal">
+          <div class="tour-tabs" role="tablist" aria-label="Product tour">
+            <button class="tour-tab" type="button" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true" tabindex="0">Home</button>
+            <button class="tour-tab" type="button" role="tab" id="tab-boards" aria-controls="panel-boards" aria-selected="false" tabindex="-1">Boards</button>
+            <button class="tour-tab" type="button" role="tab" id="tab-kanban" aria-controls="panel-kanban" aria-selected="false" tabindex="-1">Kanban</button>
+            <button class="tour-tab" type="button" role="tab" id="tab-item" aria-controls="panel-item" aria-selected="false" tabindex="-1">Item</button>
+            <button class="tour-tab" type="button" role="tab" id="tab-dashboards" aria-controls="panel-dashboards" aria-selected="false" tabindex="-1">Dashboards</button>
+            <button class="tour-tab" type="button" role="tab" id="tab-docs" aria-controls="panel-docs" aria-selected="false" tabindex="-1">Docs</button>
+            <button class="tour-tab" type="button" role="tab" id="tab-my-work" aria-controls="panel-my-work" aria-selected="false" tabindex="-1">My work</button>
+          </div>
+
+          <div class="tour-panels">
+            <div class="tour-panel is-active" id="panel-home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/home.webp" width="1440" height="900" alt="Your day, ranked: overdue, today, next." decoding="async">
+                <figcaption>Your day, ranked: overdue, today, next.</figcaption>
+              </figure>
+            </div>
+            <div class="tour-panel" id="panel-boards" role="tabpanel" aria-labelledby="tab-boards" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/board-table.webp" width="1440" height="900" alt="Typed columns, subitems, filters and saved views." loading="lazy" decoding="async">
+                <figcaption>Typed columns, subitems, filters and saved views.</figcaption>
+              </figure>
+            </div>
+            <div class="tour-panel" id="panel-kanban" role="tabpanel" aria-labelledby="tab-kanban" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/board-kanban.webp" width="1440" height="900" alt="Drag between statuses. Same data, new view." loading="lazy" decoding="async">
+                <figcaption>Drag between statuses. Same data, new view.</figcaption>
+              </figure>
+            </div>
+            <div class="tour-panel" id="panel-item" role="tabpanel" aria-labelledby="tab-item" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/item-panel.webp" width="1440" height="900" alt="Mentions, files, dependencies and time on every item." loading="lazy" decoding="async">
+                <figcaption>Mentions, files, dependencies and time on every item.</figcaption>
+              </figure>
+            </div>
+            <div class="tour-panel" id="panel-dashboards" role="tabpanel" aria-labelledby="tab-dashboards" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/dashboard.webp" width="1440" height="900" alt="Number, chart, list, risk and AI widgets." loading="lazy" decoding="async">
+                <figcaption>Number, chart, list, risk and AI widgets.</figcaption>
+              </figure>
+            </div>
+            <div class="tour-panel" id="panel-docs" role="tabpanel" aria-labelledby="tab-docs" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/doc.webp" width="1440" height="900" alt="Versioned docs beside the work they describe." loading="lazy" decoding="async">
+                <figcaption>Versioned docs beside the work they describe.</figcaption>
+              </figure>
+            </div>
+            <div class="tour-panel" id="panel-my-work" role="tabpanel" aria-labelledby="tab-my-work" tabindex="0">
+              <figure class="shot">
+                <img src="./assets/shots/my-work.webp" width="1440" height="900" alt="Everything assigned to you, across every board." loading="lazy" decoding="async">
+                <figcaption>Everything assigned to you, across every board.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="grid-title">
+      <div class="container">
+        <div class="section-head section-head--left reveal">
+          <h2 id="grid-title">Real work, not just cards.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+            </span>
+            <div>
+              <h3>Boards that fit the work</h3>
+              <p>Groups, typed columns, subitems and multiple views. Bulk edit and undo.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg>
+            </span>
+            <div>
+              <h3>A day that plans itself</h3>
+              <p>Home ranks overdue, today and next. Finish, snooze or save the view.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+            </span>
+            <div>
+              <h3>Automations and workflows</h3>
+              <p>Board recipes and cross-board workflows. Every handoff is logged.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
+            </span>
+            <div>
+              <h3>AI, only if you want it</h3>
+              <p>Bring your own key or switch AI off. Budgets keep spend in check.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+            </span>
+            <div>
+              <h3>Docs beside the work</h3>
+              <p>Versioned docs and notes, linked to the items they describe.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+            </span>
+            <div>
+              <h3>Dashboards across boards</h3>
+              <p>Number, chart, list, risk and AI widgets. No BI tool.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <div>
+              <h3>Grown-up admin</h3>
+              <p>Roles, private boards, guests, SSO, audit log, tokens and webhooks.</p>
+            </div>
+          </article>
+          <article class="feature-row reveal">
+            <span class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+            </span>
+            <div>
+              <h3>Installable on your phone</h3>
+              <p>Offline changes, push notifications and a proper mobile nav.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-band" id="automations" aria-labelledby="automations-title">
+      <div class="container automation-layout">
+        <div class="automation-copy reveal">
+          <h2 id="automations-title">Handoffs that happen on their own.</h2>
+          <p class="lead">When a deal closes, create the onboarding item, copy the details and tell the team. Every run is logged.</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>16 ready-made recipes, or write your own</span></li>
+            <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Chain create, copy, assign and post steps</span></li>
+            <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pause, duplicate and review every run</span></li>
+          </ul>
+          <a class="btn-glass" href="https://github.com/itchyparrot53/tuesday#whats-inside">See all features</a>
+        </div>
+
+        <div class="automation-visual reveal">
+          <div class="workflow" role="group" aria-label="Example workflow">
+            <ol class="workflow-steps">
+              <li class="workflow-step is-first">
+                <span class="step-label">When</span>
+                <span class="step-text">Status changes to Won on Sales pipeline</span>
+              </li>
+              <li class="workflow-step">
+                <span class="step-label">Create</span>
+                <span class="step-text">New item on Client onboarding</span>
+              </li>
+              <li class="workflow-step">
+                <span class="step-label">Copy</span>
+                <span class="step-text">Company, Value and Contract date</span>
+              </li>
+              <li class="workflow-step">
+                <span class="step-label">Assign</span>
+                <span class="step-text">The deal owner from Sales pipeline</span>
+              </li>
+              <li class="workflow-step">
+                <span class="step-label">Post</span>
+                <span class="step-text">A note tagging them: "Kick-off this week"</span>
+              </li>
+              <li class="workflow-step">
+                <span class="step-label">Notify</span>
+                <span class="step-text">#delivery team</span>
+              </li>
+            </ol>
+            <p class="workflow-caption">Example workflow</p>
+          </div>
+
+          <figure class="shot workflow-shot">
+            <img src="./assets/shots/workflow-editor.webp" width="1440" height="900" alt="The workflow editor, with a trigger on Sales pipeline and ordered steps for a cross-board handoff." loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="ai-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="ai-title">AI with a bill you control.</h2>
+          <p class="lead">Use your own OpenRouter key. Set the models, budgets and access. Or run without it.</p>
+        </div>
+
+        <div class="ai-panel glass reveal">
+          <article class="ai-point">
+            <h3>Your key, your models</h3>
+            <p>Route each feature to a fast, default or strong model. No key, no AI.</p>
+          </article>
+          <article class="ai-point">
+            <h3>Budgets that hold</h3>
+            <p>Monthly limits per person and feature. Calls over the limit are refused.</p>
+          </article>
+          <article class="ai-point">
+            <h3>Answers that respect access</h3>
+            <p>The assistant sees only what you can see, and asks before changes.</p>
+          </article>
+        </div>
+
+        <div class="budget-card glass reveal" role="group" aria-label="Example AI usage">
+          <div class="budget-head">
+            <h3>AI spend this month</h3>
+            <p class="budget-total"><span>$6.40</span> of $25.00</p>
+          </div>
+          <div class="budget-track" aria-hidden="true"><span style="width:26%"></span></div>
+          <div class="budget-rows">
+            <div class="budget-row">
+              <span class="budget-name">Erin</span>
+              <span class="budget-track mini" aria-hidden="true"><span style="width:42%"></span></span>
+              <span class="budget-amount">$2.10 of $5.00</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-name">Sam</span>
+              <span class="budget-track mini" aria-hidden="true"><span style="width:26%"></span></span>
+              <span class="budget-amount">$1.30 of $5.00</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-name">Board generation</span>
+              <span class="budget-track mini" aria-hidden="true"><span style="width:30%"></span></span>
+              <span class="budget-amount">$3.00 of $10.00</span>
+            </div>
+          </div>
+          <p class="budget-foot">Example figures</p>
+          <a class="text-link" href="https://github.com/itchyparrot53/tuesday/blob/main/docs/PRIVACY.md">What leaves your server →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-band section-light" id="self-host" aria-labelledby="selfhost-title">
+      <div class="light section-light-bg" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="selfhost-title">Small enough to own.</h2>
+          <p class="lead">One container, one database file, one volume. Back it up by copying a folder.</p>
+        </div>
+
+        <div class="selfhost-grid">
+          <div class="glass arch-panel reveal">
+            <svg class="arch arch-wide" viewBox="0 0 620 530" role="img" aria-label="Tuesday runs as one container with one data volume; AI, email, SSO, off-site backups and push are optional connections">
+              <defs>
+                <marker id="arch-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path class="arch-arrowhead" d="M 0 0 L 10 5 L 0 10 z"/>
+                </marker>
+              </defs>
+
+              <rect class="arch-box" x="80" y="16" width="300" height="56" rx="14"/>
+              <text class="arch-text" x="230" y="50" text-anchor="middle">Your browser or phone</text>
+
+              <line class="arch-line" x1="230" y1="72" x2="230" y2="124" marker-end="url(#arch-arrow)"/>
+              <text class="arch-label" x="242" y="103">HTTPS</text>
+
+              <rect class="arch-container" x="40" y="132" width="380" height="176" rx="22"/>
+              <text class="arch-title" x="60" y="163">Tuesday container</text>
+              <rect class="arch-box" x="56" y="180" width="104" height="82" rx="12"/>
+              <text class="arch-text" x="108" y="226" text-anchor="middle">Web app</text>
+              <rect class="arch-box" x="178" y="180" width="104" height="82" rx="12"/>
+              <text class="arch-text" x="230" y="226" text-anchor="middle">API</text>
+              <rect class="arch-box" x="300" y="180" width="104" height="82" rx="12"/>
+              <text class="arch-text" x="352" y="226" text-anchor="middle">Job queue</text>
+
+              <line class="arch-line" x1="230" y1="308" x2="230" y2="340" marker-end="url(#arch-arrow)"/>
+
+              <rect class="arch-box" x="40" y="348" width="380" height="154" rx="22"/>
+              <text class="arch-title" x="60" y="380">/data volume</text>
+              <rect class="arch-box" x="56" y="397" width="104" height="82" rx="12"/>
+              <text class="arch-text" x="108" y="443" text-anchor="middle">tuesday.db</text>
+              <rect class="arch-box" x="178" y="397" width="104" height="82" rx="12"/>
+              <text class="arch-text" x="230" y="443" text-anchor="middle">uploads</text>
+              <rect class="arch-box" x="300" y="397" width="104" height="82" rx="12"/>
+              <text class="arch-text" x="352" y="443" text-anchor="middle">backups</text>
+
+              <text class="arch-label" x="470" y="112">optional</text>
+
+              <line class="arch-dash" x1="420" y1="225" x2="444" y2="225"/>
+              <line class="arch-dash" x1="444" y1="156" x2="444" y2="424"/>
+              <line class="arch-dash" x1="444" y1="156" x2="470" y2="156"/>
+              <line class="arch-dash" x1="444" y1="223" x2="470" y2="223"/>
+              <line class="arch-dash" x1="444" y1="290" x2="470" y2="290"/>
+              <line class="arch-dash" x1="444" y1="357" x2="470" y2="357"/>
+              <line class="arch-dash" x1="444" y1="424" x2="470" y2="424"/>
+
+              <rect class="arch-optional" x="470" y="130" width="140" height="52" rx="12"/>
+              <text class="arch-optional-text" x="540" y="161" text-anchor="middle">OpenRouter (AI)</text>
+              <rect class="arch-optional" x="470" y="197" width="140" height="52" rx="12"/>
+              <text class="arch-optional-text" x="540" y="228" text-anchor="middle">SMTP (email)</text>
+              <rect class="arch-optional" x="470" y="264" width="140" height="52" rx="12"/>
+              <text class="arch-optional-text" x="540" y="295" text-anchor="middle">OIDC (SSO)</text>
+              <rect class="arch-optional" x="470" y="331" width="140" height="52" rx="12"/>
+              <text class="arch-optional-text" x="540" y="355" text-anchor="middle">S3 (off-site<tspan x="540" dy="18">backups)</tspan></text>
+              <rect class="arch-optional" x="470" y="398" width="140" height="52" rx="12"/>
+              <text class="arch-optional-text" x="540" y="429" text-anchor="middle">Web Push</text>
+            </svg>
+            <svg class="arch arch-narrow" viewBox="0 0 340 700" role="img" aria-label="Tuesday runs as one container with one data volume; AI, email, SSO, off-site backups and push are optional connections">
+              <defs>
+                <marker id="arch-arrow-narrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path class="arch-arrowhead" d="M 0 0 L 10 5 L 0 10 z"/>
+                </marker>
+              </defs>
+
+              <rect class="arch-box" x="20" y="10" width="300" height="48" rx="12"/>
+              <text class="arch-text" x="170" y="39" text-anchor="middle">Your browser or phone</text>
+
+              <line class="arch-line" x1="170" y1="58" x2="170" y2="82" marker-end="url(#arch-arrow-narrow)"/>
+              <text class="arch-label" x="182" y="76">HTTPS</text>
+
+              <rect class="arch-container" x="20" y="90" width="300" height="148" rx="18"/>
+              <text class="arch-title" x="36" y="119">Tuesday container</text>
+              <rect class="arch-box" x="32" y="132" width="88" height="82" rx="10"/>
+              <text class="arch-text" x="76" y="178" text-anchor="middle">Web app</text>
+              <rect class="arch-box" x="126" y="132" width="88" height="82" rx="10"/>
+              <text class="arch-text" x="170" y="178" text-anchor="middle">API</text>
+              <rect class="arch-box" x="220" y="132" width="88" height="82" rx="10"/>
+              <text class="arch-text" x="264" y="178" text-anchor="middle">Job queue</text>
+
+              <line class="arch-line" x1="170" y1="238" x2="170" y2="264" marker-end="url(#arch-arrow-narrow)"/>
+
+              <rect class="arch-box" x="20" y="272" width="300" height="148" rx="18"/>
+              <text class="arch-title" x="36" y="301">/data volume</text>
+              <rect class="arch-box" x="32" y="314" width="88" height="82" rx="10"/>
+              <text class="arch-text" x="76" y="360" text-anchor="middle">tuesday.db</text>
+              <rect class="arch-box" x="126" y="314" width="88" height="82" rx="10"/>
+              <text class="arch-text" x="170" y="360" text-anchor="middle">uploads</text>
+              <rect class="arch-box" x="220" y="314" width="88" height="82" rx="10"/>
+              <text class="arch-text" x="264" y="360" text-anchor="middle">backups</text>
+
+              <text class="arch-label" x="20" y="448">optional</text>
+              <line class="arch-dash" x1="20" y1="164" x2="10" y2="164"/>
+              <line class="arch-dash" x1="10" y1="164" x2="10" y2="664"/>
+              <line class="arch-dash" x1="10" y1="474" x2="20" y2="474"/>
+              <line class="arch-dash" x1="10" y1="522" x2="20" y2="522"/>
+              <line class="arch-dash" x1="10" y1="570" x2="20" y2="570"/>
+              <line class="arch-dash" x1="10" y1="618" x2="20" y2="618"/>
+              <line class="arch-dash" x1="10" y1="664" x2="20" y2="664"/>
+
+              <rect class="arch-optional" x="20" y="456" width="300" height="36" rx="10"/>
+              <text class="arch-optional-text" x="170" y="479" text-anchor="middle">OpenRouter (AI)</text>
+              <rect class="arch-optional" x="20" y="504" width="300" height="36" rx="10"/>
+              <text class="arch-optional-text" x="170" y="527" text-anchor="middle">SMTP (email)</text>
+              <rect class="arch-optional" x="20" y="552" width="300" height="36" rx="10"/>
+              <text class="arch-optional-text" x="170" y="575" text-anchor="middle">OIDC (SSO)</text>
+              <rect class="arch-optional" x="20" y="600" width="300" height="36" rx="10"/>
+              <text class="arch-optional-text" x="170" y="623" text-anchor="middle">S3 (off-site backups)</text>
+              <rect class="arch-optional" x="20" y="646" width="300" height="36" rx="10"/>
+              <text class="arch-optional-text" x="170" y="669" text-anchor="middle">Web Push</text>
+            </svg>
+          </div>
+
+          <div class="install-copy reveal" id="install">
+            <h3>Install in two minutes</h3>
+            <div class="code">
+              <div class="code-head">
+                <span>Terminal</span>
+                <button class="code-copy" type="button" data-copy-target="install-code"><span class="copy-label">Copy</span></button>
+              </div>
+              <pre tabindex="0"><code id="install-code"><span class="code-line"><span class="prompt" aria-hidden="true">$ </span>git clone https://github.com/itchyparrot53/tuesday.git</span>
+<span class="code-line"><span class="prompt" aria-hidden="true">$ </span>cd tuesday</span>
+<span class="code-line"><span class="prompt" aria-hidden="true">$ </span>cp .env.example .env    <span class="comment"># set APP_URL; OPENROUTER_API_KEY is optional</span></span>
+<span class="code-line"><span class="prompt" aria-hidden="true">$ </span>docker compose up -d --build</span></code></pre>
+            </div>
+            <p>Open http://localhost:3000 and create the owner account. There's no default login.</p>
+
+            <h3>What you need</h3>
+            <ul class="plain-list">
+              <li>Docker Engine 24+ with Compose</li>
+              <li>About 2 GB of RAM and a persistent volume</li>
+              <li>A domain with HTTPS for anything beyond localhost</li>
+            </ul>
+
+            <div class="button-row link-buttons">
+              <a class="btn-glass btn-sm" href="https://github.com/itchyparrot53/tuesday/blob/main/deploy/Caddyfile.example">Caddy example</a>
+              <a class="btn-glass btn-sm" href="https://github.com/itchyparrot53/tuesday/blob/main/deploy/cloudflared.example.yml">Cloudflare Tunnel</a>
+              <a class="btn-glass btn-sm" href="https://github.com/itchyparrot53/tuesday/blob/main/docs/OPERATIONS.md">Operations guide</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison glass reveal">
+          <h3>What it takes to run</h3>
+          <div class="table-wrap" tabindex="0" aria-label="What it takes to run: comparison table">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="sr-only">Feature</span></th>
+                  <th scope="col" class="is-tuesday">Tuesday</th>
+                  <th scope="col">Typical self-hosted work suites</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Services to run</th>
+                  <td class="is-tuesday">1 container</td>
+                  <td>App, database server, cache, queue and object storage</td>
+                </tr>
+                <tr>
+                  <th scope="row">Database</th>
+                  <td class="is-tuesday">One SQLite file</td>
+                  <td>A separate database server</td>
+                </tr>
+                <tr>
+                  <th scope="row">Backups</th>
+                  <td class="is-tuesday">Copy one volume, or use built-in encrypted off-site copies</td>
+                  <td>Several stores to back up and restore together</td>
+                </tr>
+                <tr>
+                  <th scope="row">AI</th>
+                  <td class="is-tuesday">Optional, your own key, with budgets</td>
+                  <td>Often bundled, metered or cloud-only</td>
+                </tr>
+                <tr>
+                  <th scope="row">Licence</th>
+                  <td class="is-tuesday">MIT</td>
+                  <td>Varies; many are open-core</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="data-title">
+      <div class="container">
+        <div class="section-head section-head--left reveal">
+          <h2 id="data-title">Your data stays on your hardware.</h2>
+          <p class="lead">No telemetry. No account with us. Only the calls you switch on.</p>
+        </div>
+
+        <div class="data-grid">
+          <div class="data-item reveal">
+            <svg class="data-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div>
+              <h3>Server-side permissions</h3>
+              <p>Every board, doc, AI answer and live update respects access.</p>
+            </div>
+          </div>
+          <div class="data-item reveal">
+            <svg class="data-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div>
+              <h3>Private boards and guests</h3>
+              <p>Share one board with a client, not the workspace.</p>
+            </div>
+          </div>
+          <div class="data-item reveal">
+            <svg class="data-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1"/><path d="M18.172 14.828a4 4 0 0 0-1.414-1.414l-.586-.586a2 2 0 0 1 0-2.828l1.586-1.586a2 2 0 0 1 2.828 0l.586.586a4 4 0 0 1 1.414 1.414"/><circle cx="16" cy="4" r="2"/><path d="m18 6-8.586 8.586"/></svg>
+            <div>
+              <h3>Single sign-on</h3>
+              <p>Any OpenID Connect provider, with invites or allowed domains.</p>
+            </div>
+          </div>
+          <div class="data-item reveal">
+            <svg class="data-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+            <div>
+              <h3>Audit log</h3>
+              <p>Sign-ins, role changes, sharing and exports. CSV out.</p>
+            </div>
+          </div>
+          <div class="data-item reveal">
+            <svg class="data-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+            <div>
+              <h3>Backups you can test</h3>
+              <p>Local archives, encrypted S3 copies and a restore drill.</p>
+            </div>
+          </div>
+          <div class="data-item reveal">
+            <svg class="data-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+            <div>
+              <h3>Health and metrics</h3>
+              <p>Deep health checks and Prometheus metrics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-band" aria-labelledby="mobile-title">
+      <div class="container mobile-layout">
+        <div class="mobile-copy reveal">
+          <h2 id="mobile-title">Install it like an app.</h2>
+          <p class="lead">Add it to your home screen. Keep working offline. Get notified when it matters.</p>
+          <ul class="check-list">
+            <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Offline changes sync when you're back</span></li>
+            <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Push for mentions and assignments</span></li>
+            <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Share links and notes into Tuesday on Android</span></li>
+          </ul>
+        </div>
+        <div class="phone-stage reveal">
+          <div class="phone">
+            <img src="./assets/shots/home-mobile.webp" width="390" height="844" alt="Tuesday's Home screen on a phone, with a ranked queue of work for the day." loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="open-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="open-title">Built in the open.</h2>
+          <p class="lead">MIT licensed. Read every line, run it anywhere and help shape what comes next.</p>
+        </div>
+
+        <div class="open-panel glass reveal">
+          <div class="open-stats">
+            <div class="open-stat">
+              <p class="stat-value" data-stars>Star on GitHub</p>
+              <p class="stat-label">GitHub stars</p>
+            </div>
+            <div class="open-stat">
+              <p class="stat-value">MIT</p>
+              <p class="stat-label">Licence</p>
+            </div>
+            <div class="open-stat">
+              <p class="stat-value"><span data-release>v0.1.0</span></p>
+              <p class="stat-label">Latest release</p>
+            </div>
+          </div>
+          <div class="open-links">
+            <a class="open-link" href="https://github.com/itchyparrot53/tuesday/discussions">
+              <span class="open-link-title">Discussions</span>
+              <span class="open-link-copy">Questions, ideas and setups</span>
+            </a>
+            <a class="open-link" href="https://github.com/itchyparrot53/tuesday/issues">
+              <span class="open-link-title">Issues</span>
+              <span class="open-link-copy">Bugs and feature requests</span>
+            </a>
+            <a class="open-link" href="https://github.com/itchyparrot53/tuesday/blob/main/CONTRIBUTING.md">
+              <span class="open-link-title">Contributing</span>
+              <span class="open-link-copy">How to set up and send a PR</span>
+            </a>
+            <a class="open-link" href="https://github.com/itchyparrot53/tuesday/blob/main/SECURITY.md">
+              <span class="open-link-title">Security</span>
+              <span class="open-link-copy">Report a vulnerability privately</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="status-note glass reveal">
+          <p>Public beta: v0.1.0. APIs may change before 1.0. Back up your data and pin a release tag for production. Maintained best-effort, with no SLA.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-band" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="faq-title">Questions, answered.</h2>
+        </div>
+
+        <div class="faq-list glass reveal">
+          <details class="faq-item" id="is-tuesday-free" name="faq">
+            <summary>Is Tuesday free?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>Yes. MIT, no paid tier and no features held back.</p></div>
+          </details>
+          <details class="faq-item" id="hosted-version" name="faq">
+            <summary>Is there a hosted version?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>No. It runs on your server. No Tuesday cloud, no account with us.</p></div>
+          </details>
+          <details class="faq-item" id="need-ai" name="faq">
+            <summary>Do I need AI?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>No. Without a key, AI features are hidden and nothing leaves your server. With a key, you set the limits.</p></div>
+          </details>
+          <details class="faq-item" id="requirements" name="faq">
+            <summary>What does it need to run?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>Docker Engine 24+ with Compose, about 2 GB of RAM and a persistent volume. HTTPS for real use.</p></div>
+          </details>
+          <details class="faq-item" id="team-size" name="faq">
+            <summary>How many people can use it?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>A few people up to about fifty on one server. Single-node SQLite, no clustering.</p></div>
+          </details>
+          <details class="faq-item" id="migrate" name="faq">
+            <summary>Can I move from monday.com or a spreadsheet?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>Export boards to CSV, import them, then rebuild views and automations.</p></div>
+          </details>
+          <details class="faq-item" id="backups" name="faq">
+            <summary>How do backups work?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>Automatic local archives, encrypted copies to any S3-compatible bucket, and a restore drill.</p></div>
+          </details>
+          <details class="faq-item" id="production" name="faq">
+            <summary>Is it ready for production?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>It's a public beta. APIs may change before 1.0. Back up and pin a release tag.</p></div>
+          </details>
+          <details class="faq-item" id="affiliation" name="faq">
+            <summary>Is Tuesday affiliated with monday.com?<svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="faq-answer"><p>No. It's independent and not affiliated with, endorsed by or connected to monday.com.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section section-light" aria-labelledby="cta-title">
+      <div class="light cta-light" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="container">
+        <div class="cta-panel glass reveal">
+          <img class="cta-logo" src="./assets/brand/tuesday-logo-stacked-light.svg" alt="Tuesday" width="363" height="219">
+          <h2 id="cta-title">The work OS small enough to own.</h2>
+          <p class="lead">Run it tonight on your own server.</p>
+          <div class="button-row cta-buttons">
+            <a class="btn-primary" href="#install">Get started</a>
+            <a class="btn-glass" href="https://github.com/itchyparrot53/tuesday">
+              <svg class="icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.15 0 1.55-.01 2.81-.01 3.19 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+              <span>Star on GitHub</span>
+              <span class="count-pill" data-stars hidden>0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="./assets/brand/tuesday-logo-horizontal-light.svg" alt="Tuesday" width="491" height="116">
+          <p>The work OS small enough to own.</p>
+        </div>
+        <nav class="footer-col" aria-label="Product">
+          <h2>Product</h2>
+          <a href="#features">Features</a>
+          <a href="#automations">Automations</a>
+          <a href="#self-host">Self-host</a>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/CHANGELOG.md">Changelog</a>
+        </nav>
+        <nav class="footer-col" aria-label="Docs">
+          <h2>Docs</h2>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/docs/OPERATIONS.md">Operations</a>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/docs/API.md">API</a>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/docs/PRIVACY.md">Privacy</a>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/docs/RELEASE.md">Release checklist</a>
+        </nav>
+        <nav class="footer-col" aria-label="Community">
+          <h2>Community</h2>
+          <a href="https://github.com/itchyparrot53/tuesday">GitHub</a>
+          <a href="https://github.com/itchyparrot53/tuesday/discussions">Discussions</a>
+          <a href="https://github.com/itchyparrot53/tuesday/issues">Issues</a>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/CONTRIBUTING.md">Contributing</a>
+          <a href="https://github.com/itchyparrot53/tuesday/blob/main/SECURITY.md">Security</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Tuesday contributors · MIT licence</span>
+        <span>Not affiliated with monday.com.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

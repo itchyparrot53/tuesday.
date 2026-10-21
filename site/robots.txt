@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://itchyparrot53.github.io/tuesday/sitemap.xml

@@ -17,3 +17,7 @@ e2e.log
 baseline*.log
 *.log
 .pre-update-backup/
+
+# landing site build inputs and check artefacts
+site/brand-kit-src/
+site/tools/screens/
