@@ -81,7 +81,27 @@ Admin → **Go-live checklist** should show pass or an explicit warning for:
 - If the new container fails, start the previous image against the same volume only after taking a fresh backup.
 - Do not delete the volume; use the Admin → Data restore path for a database rollback.
 
-## 9. After launch
+## 9. Publish a release and container image
+
+Version tags publish a multi-arch image to GHCR. Ordinary commits do not build or publish an image.
+
+```bash
+git tag -a v0.1.0 -m "Tuesday v0.1.0"
+git push origin v0.1.0
+```
+
+The `Publish container` workflow builds `ghcr.io/itchyparrot53/tuesday` for linux/amd64 and linux/arm64 with the tags `v0.1.0`, `0.1.0`, `0.1`, `0` and, for stable tags, `latest`. Publishing a GitHub Release from the same tag triggers the same workflow; if the tag is already published, the existing image is detected and the build is skipped.
+
+Deploy the published image with:
+
+```bash
+cp .env.example .env
+TUESDAY_VERSION=v0.1.0 docker compose -f docker-compose.release.yml up -d
+```
+
+If the package is private after the first publish, set it to Public in the package settings on GitHub.
+
+## 10. After launch
 
 - Test the share target from an installed Android PWA.
 - Test the inbound webhook with a real sender.
