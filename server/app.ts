@@ -229,14 +229,14 @@ export async function buildApp(opts: AppOptions): Promise<FastifyInstance> {
       root: path.join(path.dirname(fileURLToPath(import.meta.url)), '../web'),
       wildcard: false,
       cacheControl: false,
-      setHeaders: (res, filePath) => {
+      setHeaders: (reply, filePath) => {
         if (filePath.includes(`${path.sep}assets${path.sep}`)) {
-          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          reply.header('Cache-Control', 'public, max-age=31536000, immutable');
         } else if (/(sw\.js|registerSW\.js|manifest\.webmanifest|index\.html)$/.test(filePath)) {
-          res.setHeader('Cache-Control', 'no-cache');
+          reply.header('Cache-Control', 'no-cache');
         }
         if (filePath.endsWith('manifest.webmanifest')) {
-          res.setHeader('Content-Type', 'application/manifest+json');
+          reply.header('Content-Type', 'application/manifest+json');
         }
       },
     });

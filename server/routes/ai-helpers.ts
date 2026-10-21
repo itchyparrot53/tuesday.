@@ -45,7 +45,7 @@ const suggestionSchema = z.object({
       z.object({
         title: z.string().min(1).max(80),
         type: z.string(),
-        settings: z.record(z.unknown()).optional(),
+        settings: z.record(z.string(), z.unknown()).optional(),
         reason: z.string().max(200),
       }),
     )

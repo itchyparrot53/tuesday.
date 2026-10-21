@@ -80,7 +80,7 @@ export async function dashboardDraft(
 const viewSchema = z.object({
   name: z.string().trim().min(1).max(80),
   type: z.enum(['table', 'kanban', 'calendar', 'timeline']),
-  settings: z.record(z.unknown()),
+  settings: z.record(z.string(), z.unknown()),
 });
 
 export async function viewDraft(
