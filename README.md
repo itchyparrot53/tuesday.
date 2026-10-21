@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="web/public/icon.svg" width="88" alt="Tuesday" />
+<img src="docs/brand/readme-hero.webp" width="100%" alt="Tuesday logo" />
 
 <h1>Tuesday</h1>
 
