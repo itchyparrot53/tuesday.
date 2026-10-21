@@ -207,12 +207,33 @@ E2E uses an isolated SQLite database with fake AI, email, push and S3 adapters. 
 - **Release checklist:** [docs/RELEASE.md](docs/RELEASE.md) — HTTPS, email DNS, backups, go-live and rollback.
 - **Backups:** local archives plus optional encrypted S3-compatible copies. Test a restore with `scripts/restore-drill.sh` before trusting it.
 
-Typical production upgrade:
+### Prebuilt image
+
+Version tags publish a multi-arch image (linux/amd64 and linux/arm64) to `ghcr.io/itchyparrot53/tuesday`. Normal commits do not build or publish an image.
+
+```bash
+cp .env.example .env
+TUESDAY_VERSION=v0.1.0 docker compose -f docker-compose.release.yml up -d
+```
+
+`latest` follows the newest stable tag; pin a version in production.
+
+### Upgrades
+
+From source:
 
 ```bash
 git fetch --tags
 git checkout v0.1.0
 docker compose up -d --build
+# Check /api/health and Admin → Go-live checklist.
+```
+
+From the published image:
+
+```bash
+TUESDAY_VERSION=v0.2.0 docker compose -f docker-compose.release.yml pull
+TUESDAY_VERSION=v0.2.0 docker compose -f docker-compose.release.yml up -d
 # Check /api/health and Admin → Go-live checklist.
 ```
 

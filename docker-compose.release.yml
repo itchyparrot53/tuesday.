@@ -1,0 +1,19 @@
+services:
+  tuesday:
+    image: ghcr.io/itchyparrot53/tuesday:${TUESDAY_VERSION:-latest}
+    pull_policy: always
+    ports:
+      - '${PORT:-3000}:3000'
+    env_file:
+      - .env
+    environment:
+      PORT: 3000
+      DATABASE_PATH: /data/tuesday.db
+      UPLOADS_DIR: /data/uploads
+      BACKUP_DIR: /data/backups
+    volumes:
+      - tuesday-data:/data
+    restart: unless-stopped
+
+volumes:
+  tuesday-data:
