@@ -53,6 +53,9 @@ jobs:
   docker:
     name: Docker smoke
     needs: checks
+    # Validate the image on pull requests and manual runs only. Ordinary commits to main should
+    # not rebuild it; version tags publish the prebuilt image through docker-publish.yml.
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
