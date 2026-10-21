@@ -1,4 +1,4 @@
-**Website:** https://itchyparrot53.github.io/tuesday/
+**Website:** https://itchyparrot53.github.io/tuesday./
 
 <div align="center">
 

@@ -139,7 +139,7 @@
   });
 
   // GitHub stars and latest release, cached for one hour.
-  const API = "https://api.github.com/repos/itchyparrot53/tuesday";
+  const API = "https://api.github.com/repos/itchyparrot53/tuesday.";
   const CACHE_KEY = "tuesday-github-v1";
   const formatStars = (value) => {
     if (value < 1000) return String(value);

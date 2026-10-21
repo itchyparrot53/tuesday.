@@ -28,7 +28,7 @@ for (const width of widths) {
   page.on("console", (message) => {
     if (message.type() !== "error") return;
     const url = message.location().url || "";
-    if (url.includes("api.github.com")) notes.push(`${width}px: optional GitHub API 404 (repository not public), fallbacks kept`);
+    if (url.includes("api.github.com")) notes.push(`${width}px: optional GitHub API unavailable (rate limited or offline), fallbacks kept`);
     else localErrors.push(`${message.text()} ${url}`);
   });
 

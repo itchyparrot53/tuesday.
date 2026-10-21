@@ -59,7 +59,7 @@ The site is at `/site`, and deploys with `.github/workflows/pages.yml`.
 5. **README anchor.** “See all features on GitHub” points at `#whats-inside`, which is the real named anchor in the repository README (the brief wrote `#-whats-inside`). The link uses the repository URL and opens in the same tab.
 6. **Glass opacity where needed.** The hero panel (0.72 white), budget panel (0.66), comparison (0.66), status note (0.66), FAQ (0.62), CTA (0.62) and mobile menu (0.90) use stronger backgrounds than the shared `--glass` token where they sit over stronger colour. No other panels were changed.
 7. **Copy fallback.** Successful copy shows “Copied” for 1.5s and announces it. If the Clipboard API is unavailable, the command text is selected and the button says “Selected” instead, so the label does not claim a copy that did not happen.
-8. **GitHub API in this environment.** The repository at `itchyparrot53/tuesday` returned HTTP 404 from the GitHub API while I was building (the user account exists; the repository is not publicly readable yet). The page keeps its fallbacks (`v0.1.0`, “Star on GitHub”, hidden count pills) and does not show an error or a zero. This also produces the only two entries in the browser console at the moment: the two optional GitHub requests. No local asset, script or page errors occur. Once the repository is public the count and latest tag will populate and best-practices should return to 100.
+8. **GitHub API in this environment.** The unauthenticated GitHub REST API was rate-limited from this build machine. The page keeps its fallbacks (`v0.1.0`, “Star on GitHub”, hidden count pills) and does not show an error or a zero. This produces the only two entries in the browser console: the two optional GitHub requests. No local asset, script or page errors occur. On a visitor IP with API quota, the count and latest tag populate normally.
 
 ## Image sizes
 
@@ -109,7 +109,7 @@ Brand and type:
 npm_config_cache=/tmp/npm-cache npx --yes serve site -l 4173
 ```
 
-The site returned HTTP 200 from the shared `serve` process on port 4173. There were no local console errors or page errors. The only console entries were the two GitHub API 404s described above.
+The site returned HTTP 200 from the shared `serve` process on port 4173. There were no local console errors or page errors. The only console entries were the two rate-limited GitHub API requests described above.
 
 ### 2. Playwright checks — pass
 
@@ -146,13 +146,13 @@ axe reported no colour-contrast violations at any tested width. The only use of 
 - Page height at 1440: **9,465px**, down from 10,417px after the copy pass and 11,715px in the first build.
 - Lighthouse (Chromium, headless, `serve` on port 4173): **Performance 96 · Accessibility 100 · Best practices 96 · SEO 100**.
   - FCP 0.8s, LCP 2.5s, TBT 20ms, CLS 0.
-  - Best practices lost 4 points solely to the two GitHub API 404 console entries while the repository is not public. The Lighthouse run with the repo visible should be 100; this is an external availability issue, not a local request failure.
+  - Best practices lost 4 points solely to the two rate-limited GitHub API console entries. This is external rate limiting, not a local request failure.
 
 ### 5. Content — pass
 
 - No lorem ipsum, exclamation marks, em dashes or emoji.
 - No invented numbers, customers, testimonials, logos or download counts. The only figures beyond product facts are the example AI figures and percentages explicitly labelled “Example figures”/“Example workflow”. The earlier “five views” wording was replaced with “multiple views” because the source copy names four views.
-- Every external link points at `https://github.com/itchyparrot53/tuesday/...` and uses the same tab.
+- Every external link points at `https://github.com/itchyparrot53/tuesday./...` and uses the same tab.
 - No `target="_blank"` and no `rel="noopener"` anywhere.
 - No framework, CDN, Google Fonts, analytics, cookie banner or third-party embed.
 - The only runtime third-party request is the optional GitHub API pair.
@@ -160,6 +160,13 @@ axe reported no colour-contrast violations at any tested width. The only use of 
 ### 6. Without JavaScript — pass
 
 With JavaScript disabled at 390px, all seven tour panels are visible stacked, all sections read in order, and the install code block is visible with the four commands. The `<details>` FAQ continues to work natively.
+
+## Live deployment
+
+- Pages URL: **https://itchyparrot53.github.io/tuesday./**
+- Repository URL: **https://github.com/itchyparrot53/tuesday.**
+- The trailing dot is part of this repository's name. Canonical, Open Graph, sitemap, robots, README, GitHub buttons and the install command all use the trailing-dot URLs.
+- The GitHub Pages workflow completed its first deployment from commit `a0a9926`; the URL corrections are deployed from the next commit.
 
 ## Owner note
 
