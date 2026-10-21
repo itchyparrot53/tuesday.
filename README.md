@@ -59,6 +59,11 @@ It runs as one Docker container with one SQLite database and one `/data` volume.
 
 ## What's inside
 
+<div align="center">
+  <img src="docs/screenshots/board-table.png" alt="Board table with groups and typed columns" width="100%" />
+  <p><em>Board table with groups, typed columns and saved views.</em></p>
+</div>
+
 - Boards have groups, typed columns, subitems, table, kanban, calendar and timeline views, filters, saved views, bulk edit, undo, import/export and templates.
 - Home is a ranked focus queue. My work, Inbox, updates with @mentions, files, dependencies, time tracking and keyboard navigation cover the daily work.
 - Automations include 16 recipes, board-specific LLM templates, a sentence builder for chained subitem actions, run history, pause/duplicate and signed outbound webhooks.
@@ -72,11 +77,9 @@ It runs as one Docker container with one SQLite database and one `/data` volume.
 
 <a name="screenshots"></a>
 <details id="screenshots">
-<summary><strong>Screenshots: boards, automations, docs and mobile</strong></summary>
+<summary><strong>More screenshots: kanban, automations, docs and mobile</strong></summary>
 
-### Boards: table and kanban
-
-<img src="docs/screenshots/board-table.png" alt="Board table with groups and typed columns" width="100%" />
+### Boards: kanban
 
 <img src="docs/screenshots/board-kanban.png" alt="Board kanban by status" width="100%" />
 
