@@ -32,7 +32,7 @@ export interface Preferences {
 export const DEFAULT_PREFERENCES: Preferences = {
   theme: 'system',
   density: 'comfortable',
-  colorTheme: 'monday',
+  colorTheme: 'tuesday',
   sidebarCollapsed: false,
   collapsedWorkspaceIds: [],
   homeBoardFilter: null,

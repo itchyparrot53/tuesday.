@@ -14,7 +14,7 @@ describe('preferences', () => {
     expect(first.statusCode).toBe(200);
     expect(first.json().user.preferences).toMatchObject({
       theme: 'dark',
-      colorTheme: 'monday',
+      colorTheme: 'tuesday',
       density: 'comfortable',
       sidebarCollapsed: false,
     });

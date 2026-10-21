@@ -36,11 +36,11 @@
           'sunday',
         ].includes(requestedTheme)
           ? requestedTheme
-          : (legacyTheme ?? 'monday');
+          : (legacyTheme ?? 'tuesday');
       } catch (error) {
         document.documentElement.dataset.theme = 'light';
         document.documentElement.dataset.density = 'comfortable';
-        document.documentElement.dataset.colorTheme = 'monday';
+        document.documentElement.dataset.colorTheme = 'tuesday';
       }
     </script>
     <title>Tuesday</title>

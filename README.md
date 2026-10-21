@@ -50,7 +50,7 @@ It runs as one Docker container with one SQLite database and one `/data` volume.
 - Typed columns, subitems, dependencies, files, time tracking, docs, dashboards and an inbox share one permission model.
 - Automations run board-scoped recipes. Org-level workflows carry data across boards and handoffs.
 - AI is optional. Use your own OpenRouter key, or run everything without AI. Every call goes through budgets, routing and usage reporting. [What leaves the server](docs/PRIVACY.md).
-- Seven day-named palettes are available. Monday is the default. Each day has a light and dark default, and you can override either.
+- The picker lists the days in week order. Tuesday is the default, so it is selected second. Each day has a light and dark default, and you can override either.
 - Operations stay small. There is one process, one SQLite file, a database-backed job queue, a health endpoint and a documented restore drill.
 
 ---

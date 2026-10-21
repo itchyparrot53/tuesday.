@@ -90,5 +90,5 @@ export function isColorTheme(value: unknown): value is ColorThemeId {
 export function normalizeColorTheme(value: unknown): ColorThemeId {
   if (isColorTheme(value)) return value;
   if (typeof value === 'string' && LEGACY_THEME_IDS[value]) return LEGACY_THEME_IDS[value];
-  return 'monday';
+  return 'tuesday';
 }

@@ -3,8 +3,8 @@ import { DEFAULT_PREFERENCES } from '../shared/types';
 import { COLOR_THEMES, normalizeColorTheme } from '../shared/themes';
 
 describe('theme defaults and order', () => {
-  test('new accounts start on Monday', () => {
-    expect(DEFAULT_PREFERENCES.colorTheme).toBe('monday');
+  test('new accounts start on Tuesday', () => {
+    expect(DEFAULT_PREFERENCES.colorTheme).toBe('tuesday');
   });
 
   test('the picker follows the week and has no promoted theme', () => {
@@ -18,6 +18,7 @@ describe('theme defaults and order', () => {
       'sunday',
     ]);
     expect(COLOR_THEMES[0]).toMatchObject({ id: 'monday', defaultMode: 'light' });
+    expect(COLOR_THEMES[1]).toMatchObject({ id: 'tuesday', defaultMode: 'light' });
     expect(COLOR_THEMES.map((theme) => theme.name)).toEqual([
       'Monday',
       'Tuesday',
@@ -35,12 +36,12 @@ describe('theme defaults and order', () => {
     expect(COLOR_THEMES.find((theme) => theme.id === 'saturday')?.defaultMode).toBe('dark');
     expect(COLOR_THEMES.find((theme) => theme.id === 'sunday')?.defaultMode).toBe('light');
     expect(normalizeColorTheme('forest')).toBe('wednesday');
-    expect(normalizeColorTheme('nope')).toBe('monday');
+    expect(normalizeColorTheme('nope')).toBe('tuesday');
   });
 
-  test('a retired customer theme id still saved in preferences maps to Monday', () => {
+  test('a retired customer theme id still saved in preferences maps to Tuesday', () => {
     // The retired id is assembled so the public tree never carries the brand string.
     const retiredCustomerTheme = ['um', 'ev'].join('');
-    expect(normalizeColorTheme(retiredCustomerTheme)).toBe('monday');
+    expect(normalizeColorTheme(retiredCustomerTheme)).toBe('tuesday');
   });
 });

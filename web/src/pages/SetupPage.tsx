@@ -30,7 +30,7 @@ export function SetupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [timezone, setTimezone] = useState(ZONES.includes(browserZone) ? browserZone : 'UTC');
-  const [colorTheme, setColorTheme] = useState<ColorThemeId>('monday');
+  const [colorTheme, setColorTheme] = useState<ColorThemeId>('tuesday');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);

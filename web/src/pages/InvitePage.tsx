@@ -28,7 +28,7 @@ export function InvitePage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [colorTheme, setColorTheme] = useState<ColorThemeId>('monday');
+  const [colorTheme, setColorTheme] = useState<ColorThemeId>('tuesday');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
