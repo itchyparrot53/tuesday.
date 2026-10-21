@@ -21,7 +21,16 @@ test('email: test send, invite, password reset and mention preferences', async (
       );
     })
     .toBe(true);
-  await expect(page.getByTestId('email-log-row').first()).toContainText('sent');
+  await expect
+    .poll(
+      async () => {
+        await page.request.post('/api/admin/jobs/run-due', { headers: H });
+        await page.reload();
+        return page.getByTestId('email-log-row').first().innerText();
+      },
+      { timeout: 20_000, intervals: [1000, 2000, 5000] },
+    )
+    .toContain('sent');
   await axeCheck(page, 'admin email');
 
   const email = `teammate-${Date.now()}@example.test`;
