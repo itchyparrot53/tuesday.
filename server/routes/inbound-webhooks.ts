@@ -24,7 +24,7 @@ const receiveSchema = z
     dueDate: z.string().trim().min(1).max(80).optional(),
     assignee: z.string().trim().email().max(200).optional(),
     description: z.string().trim().min(1).max(20000).optional(),
-    values: z.record(z.unknown()).optional(),
+    values: z.record(z.string(), z.unknown()).optional(),
   })
   .passthrough();
 

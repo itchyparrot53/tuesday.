@@ -221,13 +221,13 @@ export const columnCreateSchema = z.object({
     'time_tracking',
     'file',
   ]),
-  settings: z.record(z.unknown()).optional(),
+  settings: z.record(z.string(), z.unknown()).optional(),
   afterColumnId: z.number().int().positive().nullable().optional(),
 });
 
 export const columnUpdateSchema = z.object({
   title: z.string().trim().min(1).max(80).optional(),
-  settings: z.record(z.unknown()).optional(),
+  settings: z.record(z.string(), z.unknown()).optional(),
   width: z.number().int().optional(),
   afterColumnId: z.number().int().positive().nullable().optional(),
 });
@@ -304,7 +304,7 @@ export const itemCreateSchema = z.object({
   name: z.string().trim().min(1).max(500),
   parentId: z.number().int().positive().optional(),
   at: z.enum(['top', 'bottom']).optional(),
-  values: z.record(z.unknown()).optional(),
+  values: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const itemUpdateSchema = z.object({
@@ -370,7 +370,7 @@ export const aiSettingsSchema = z.object({
   requireConfirmation: z.boolean(),
   memoryEnabled: z.boolean(),
   defaultUserMonthlyUsd: z.number().min(0).max(100000),
-  routing: z.record(z.enum(AI_FEATURES), z.enum(AI_TIERS)),
+  routing: z.partialRecord(z.enum(AI_FEATURES), z.enum(AI_TIERS)),
   budgetAlerts: z.boolean(),
 });
 
@@ -463,7 +463,7 @@ export const boardDraftSchema = z
         z.object({
           group: z.string().trim().min(1).max(60),
           name: z.string().trim().min(1).max(500),
-          values: z.record(z.string()).optional(),
+          values: z.record(z.string(), z.string()).optional(),
         }),
       )
       .max(30),
@@ -531,7 +531,7 @@ export const formUpdateSchema = z.object({
 });
 
 export const publicFormSubmitSchema = z.object({
-  values: z.record(z.unknown()),
+  values: z.record(z.string(), z.unknown()),
   website: z.string().max(200).optional(),
 });
 
