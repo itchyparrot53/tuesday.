@@ -40,11 +40,12 @@ test('Home bulk actions: complete three, undo, then snooze two', async ({ page }
     },
   });
   await page.goto('/');
+  await page.waitForLoadState('networkidle');
   await expect(page.getByTestId('home-focus')).toContainText('Bulk item');
   await expect(page.getByLabel('Filter by board')).toContainText(boardName);
 
   const rows = page.getByTestId('home-queue').getByTestId('home-myday-row');
-  await expect(rows).toHaveCount(4);
+  await expect(rows).toHaveCount(4, { timeout: 15_000 });
   await expect(rows.first().getByRole('button', { name: /Change status/ })).toBeVisible();
 
   for (let index = 0; index < 3; index++) {

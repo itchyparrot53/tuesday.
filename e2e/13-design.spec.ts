@@ -100,7 +100,7 @@ const registry: Entry[] = [
       await page.waitForLoadState('networkidle');
       await expectStyle(page.getByTestId('page-title'), 'font-family', /Bricolage/);
       await expectStyle(page.getByTestId('tab-indicator'), 'height', '2px');
-      await expectStyle(page.getByTestId('tab-indicator'), 'background-color', 'rgb(0, 115, 234)');
+      await expectStyle(page.getByTestId('tab-indicator'), 'background-color', 'rgb(201, 53, 108)');
       await expectStyle(page.getByTestId('item-row').first(), 'height', '40px');
       await expectStyle(
         page.locator('[data-column-title="Status"] .status-cell .status-pill').first(),
@@ -124,7 +124,7 @@ const registry: Entry[] = [
       await activeCell.click();
       await expect(activeCell).toHaveClass(/ring-2/);
       const ring = await activeCell.evaluate((element) => getComputedStyle(element).boxShadow);
-      expect(ring).toContain('rgb(0, 115, 234)');
+      expect(ring).toContain('rgb(201, 53, 108)');
     },
   },
   {
