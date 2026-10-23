@@ -1,13 +1,23 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { addDays } from '../server/lib/timezone';
 import { H, createBoard, signIn } from './helpers';
 
-function today(): string {
-  return new Date().toISOString().slice(0, 10);
+async function appToday(page: Page): Promise<string> {
+  const me = await (await page.request.get('/api/auth/me')).json();
+  const timezone = (me.org?.timezone as string | undefined) ?? 'UTC';
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  const part = (type: string) => parts.find((entry) => entry.type === type)?.value ?? '';
+  return `${part('year')}-${part('month')}-${part('day')}`;
 }
 
 test('Home bulk actions: complete three, undo, then snooze two', async ({ page }) => {
   const owner = await signIn(page);
+  const dateToday = await appToday(page);
   const boardName = `Bulk board ${Date.now()}`;
   const { boardId } = await createBoard(page, boardName);
   const full = await (await page.request.get(`/api/boards/${boardId}`)).json();
@@ -22,7 +32,7 @@ test('Home bulk actions: complete three, undo, then snooze two', async ({ page }
         name: `Bulk item ${index + 1}`,
         values: {
           [String(people.id)]: { userIds: [owner.id] },
-          [String(date.id)]: { date: today() },
+          [String(date.id)]: { date: dateToday },
         },
       },
     });
@@ -41,6 +51,8 @@ test('Home bulk actions: complete three, undo, then snooze two', async ({ page }
   });
   await page.goto('/');
   await page.waitForLoadState('networkidle');
+  await page.getByTestId('home-date-all').click();
+  await expect(page.getByTestId('home-date-all')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByTestId('home-focus')).toContainText('Bulk item');
   await expect(page.getByLabel('Filter by board')).toContainText(boardName);
 
@@ -71,7 +83,7 @@ test('Home bulk actions: complete three, undo, then snooze two', async ({ page }
   }[];
   for (const name of names) {
     const item = items.find((entry) => entry.name === name);
-    expect(item?.values[String(date.id)]?.date).toBe(addDays(today(), 1));
+    expect(item?.values[String(date.id)]?.date).toBe(addDays(dateToday, 1));
   }
 
   await page.request.patch('/api/me', {

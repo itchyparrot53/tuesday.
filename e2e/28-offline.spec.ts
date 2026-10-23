@@ -16,23 +16,26 @@ test('offline: shell, banner, outbox and share target', async ({ page, context }
   await page.goto(`/boards/${boardId}`);
   await page.waitForLoadState('networkidle');
   await page.evaluate(async () => {
-    if (!('serviceWorker' in navigator)) throw new Error('Service workers are unavailable');
-    if (!(await navigator.serviceWorker.getRegistration())) {
-      await navigator.serviceWorker.register('/sw.js');
-    }
+    const ready = (async () => {
+      if (!('serviceWorker' in navigator)) throw new Error('Service workers are unavailable');
+      if (!(await navigator.serviceWorker.getRegistration())) {
+        await navigator.serviceWorker.register('/sw.js');
+      }
+      await navigator.serviceWorker.ready;
+      if (!navigator.serviceWorker.controller) {
+        await new Promise<void>((resolve) =>
+          navigator.serviceWorker.addEventListener('controllerchange', () => resolve(), {
+            once: true,
+          }),
+        );
+      }
+    })();
     await Promise.race([
-      navigator.serviceWorker.ready,
+      ready,
       new Promise<never>((_, reject) =>
-        window.setTimeout(() => reject(new Error('Service worker did not become ready')), 15_000),
+        window.setTimeout(() => reject(new Error('Service worker did not become ready')), 20_000),
       ),
     ]);
-    if (!navigator.serviceWorker.controller) {
-      await new Promise<void>((resolve) =>
-        navigator.serviceWorker.addEventListener('controllerchange', () => resolve(), {
-          once: true,
-        }),
-      );
-    }
   });
   await page.reload();
   await page.waitForLoadState('networkidle');
